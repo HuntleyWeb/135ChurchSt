@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   mailApiEndpoint: 'https://hwebapi.azurewebsites.net/Message/sendmessage',
-  bookingApiEnpoint:'https://hwebapi.azurewebsites.net/bookings',
-  bookingDeposit: '20%',
+  bookingApiEnpoint:'https://hwebapi.azurewebsites.net',
+  bookingDepositPct: '20',
   contactUsTarget: 'huntleyhomes@hotmail.com',
   notificationList: '',
   vers:'1.0.0.1'

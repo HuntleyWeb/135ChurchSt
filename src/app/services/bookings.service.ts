@@ -5,11 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map, catchError} from 'rxjs/operators';
 import { Booker } from '../models/booker';
-import { Daterange } from '../models/daterange';
-import { AppModule } from '../app.module';
-import { Console } from 'console';
 import { DatePipe } from '@angular/common';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +21,7 @@ export class BookingsService {
       new Date(2023, 0, 28)
   ];
 
+  // read booking API Config
   baseUrl:string = environment.bookingApiEnpoint;
 
   constructor(private httpClient: HttpClient, private datePipe: DatePipe) { }
@@ -35,9 +32,26 @@ export class BookingsService {
     return date;
   }
 
-  BookingDeposit()
+  GetBookingDepositPercent()
   {
-    return environment.bookingDeposit;
+    return environment.bookingDepositPct;
+  }
+
+  CalculateBalance(bookingRate:string, depositAmount:string)
+  {
+    var rate = Number(bookingRate);
+    var deposit = Number(depositAmount);
+
+    return (rate - deposit).toString();
+  }
+  CalculateBookingDeposit(bookingRate:string)
+  {
+    var pct = Number(environment.bookingDepositPct);
+    var rate = Number(bookingRate);
+
+    var deposit = (pct / 100) * rate;
+
+    return (deposit).toString();
   }
 
   ConvertToDate(date: NgbDate)
@@ -77,7 +91,7 @@ export class BookingsService {
 
   GetBookingDates() : Observable<any> {
     let minDate = this.GetMinimumCalendarDate();
-    let endpoint = "/getBookingDates";
+    let endpoint = "/bookings/getBookingDates";
 
     endpoint += "?month=" + minDate.month + "&year=" + minDate.year;
 
@@ -86,18 +100,18 @@ export class BookingsService {
 
   GetBookingRate(startDate:Date, duration)
   {
-    let endpoint = "https://hwebapi.azurewebsites.net/BookingRate/getBookingRateByStartDate";
+    let endpoint = "/BookingRate/getBookingRateByStartDate";
 
     endpoint += "?date=" + this.datePipe.transform(startDate, 'yyyy-MM-dd');
     endpoint += "&duration=" + duration;
 
-    return this.httpClient.get(endpoint);
+    return this.httpClient.get(this.baseUrl + endpoint);
   }
 
   PostBooking(booking:Booker) : Observable<any> {
 
     //let endpoint = "https://reqres.in/api/posts";
-    let endpoint = this.baseUrl + "/createBooking";
+    let endpoint = this.baseUrl + "/bookings/createBooking";
 
     let payload = JSON.stringify(booking);
 

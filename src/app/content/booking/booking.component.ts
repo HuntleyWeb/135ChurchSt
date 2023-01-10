@@ -27,7 +27,9 @@ export class BookingComponent implements OnInit {
   breakType = 'None';
   startDay = '';
   endDay = '';
+  depositPct = '';
   depositAmount = '';
+  balanceAmount = '';
   validDates = false;
 
   bookedDates: Date[];
@@ -38,7 +40,10 @@ export class BookingComponent implements OnInit {
   sending = false;
   reserved = false;
 
-  constructor(private bookingService: BookingsService, private router: Router, calendar: NgbCalendar) {
+  constructor(
+    private bookingService: BookingsService,
+    private router: Router,
+    calendar: NgbCalendar) {
 
 		//this.toDate = calendar.getNext(this.fromDate, 'd', 4);
   }
@@ -46,7 +51,7 @@ export class BookingComponent implements OnInit {
   ngOnInit() {
     //this.bookedDates = this.bookingService.GetMockedBookings();
     this.getBookingDates();
-    this.depositAmount = this.bookingService.BookingDeposit();
+    this.depositPct = this.bookingService.GetBookingDepositPercent();
   }
 
   getBookingDates = () => {
@@ -56,12 +61,8 @@ export class BookingComponent implements OnInit {
     this.bookingService.GetBookingDates()
       .subscribe(
         (response) => {
-          console.log("response received");
-          console.log(response as JSON);
           this.mapDates(response);
           this.setCalendarRange();
-
-          //this.fromDate = new NgbDate(2023, 1, 23);
         },
         (error) => {
           console.error('Request failed with error')
@@ -82,9 +83,9 @@ export class BookingComponent implements OnInit {
     this.bookingService.GetBookingRate(starts, duration)
       .subscribe(
         (response) => {
-          console.log("response received");
-          console.log(response as JSON);
           this.rate = response.toString();
+          this.depositAmount = this.bookingService.CalculateBookingDeposit(this.rate);
+          this.balanceAmount = this.bookingService.CalculateBalance(this.rate, this.depositAmount);
         },
         (error) => {
           console.error('Request failed with error')

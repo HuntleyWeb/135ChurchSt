@@ -11,7 +11,7 @@
     <img src='../../assets/images/bigrotation2.gif'/>
   </div>
 
-  <div class="overlay-box solidbacking" style="height:500px" *ngIf="reserved">
+  <div class="overlay-box solidbacking" style="height:570px" *ngIf="reserved">
     <p style="font-size:x-large; margin-top: 16px;" >Thank you for booking with us.</p>
     <p align="left">Your chosen dates are now reserved and we will be in touch shortly to finalize your booking.</p>
     <div class="summaryrow">
@@ -27,6 +27,19 @@
       <div class="summaryvalue">{{model.EmailAddress}}</div>
     </div>
     <div>&nbsp;<hr/></div>
+
+    <div class="summaryrow">
+      <div class="summarylabel">Total Rate :</div>
+      <div class="summaryvalue">&pound;{{rate}}</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Booking Deposit :</div>
+      <div class="summaryvalue">&pound;{{depositAmount}}</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Balance :</div>
+      <div class="summaryvalue">&pound;{{balanceAmount}}</div>
+    </div>
     <div class="summaryrow">
       <div class="summarylabel">Break :</div>
       <div class="summaryvalue">{{breakType}}</div>
@@ -54,8 +67,9 @@
   <div class="row">
     <div class="col-12">
       <h1>Booking</h1>
-      <p>Use the calendar below to see when the cottage is free and to select the start and end dates or your stay.</p>
+      <p>Use the calendar below to see when the cottage is free and select the start and end dates of your stay, sorry but <b>we don't allow dogs</b>.</p>
       <p>Once you've selected your dates just supply your contact details when prompted and click on the <i>Book</i> button.</p>
+      <p>Your booking will be reserved just as soon as you click the <i>Book</i> button, someone will be in touch to collect your deposit and help with any questions.</p>
       <h2>Booking Options</h2>
       <ul>
         <li>Full Week (Starting Saturday, contact us to request other days)</li>
@@ -110,6 +124,7 @@
 
       <div *ngIf="validDates" style="text-align:right">
         Total Cost: &pound;{{ rate }}<br/>
+        {{ depositPct }}% Booking Deposit : &pound;{{ depositAmount }}<br/>
         Arrive: {{ startDay }} - {{startDate | date:'dd/MM/yyyy'}}<br/>
         Depart: {{ endDay }} - {{endDate | date:'dd/MM/yyyy'}}<br/>
       </div>
