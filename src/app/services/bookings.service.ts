@@ -44,6 +44,7 @@ export class BookingsService {
 
     return (rate - deposit).toString();
   }
+
   CalculateBookingDeposit(bookingRate:string)
   {
     var pct = Number(environment.bookingDepositPct);
@@ -59,8 +60,8 @@ export class BookingsService {
       return new Date(date.year, date.month - 1, date.day);
   }
 
-  ConvertStringToDate(date: string){
-
+  ConvertStringToDate(date: string)
+  {
     const [day, month, year] = date.split('/');
 
     return new Date(+year, +month - 1, +day);
