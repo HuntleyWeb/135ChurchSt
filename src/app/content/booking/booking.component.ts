@@ -89,8 +89,10 @@ export class BookingComponent implements OnInit {
         },
         (error) => {
           console.error('Request failed with error')
-          this.errorMessage = error;
+          //this.errorMessage = error;
+          this.errorMessage = "No Booking Rate Configured... Please select alternative dates or contact us.";
           this.loading = false;
+          this.validDates = false;
         },
         () => {
           console.error('Request completed')
