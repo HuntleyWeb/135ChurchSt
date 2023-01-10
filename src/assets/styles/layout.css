@@ -1,0 +1,19 @@
+.banner
+{
+  background-image: url('../images/harbour.jpg'); background-repeat: no-repeat; background-size: 100%, auto; min-height: 700px;
+}
+
+.popupbottombuttondiv
+{
+  float:right;
+  padding:6px;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+
+.bottombuttondiv
+{
+  text-align:right;
+  padding:3px;
+}

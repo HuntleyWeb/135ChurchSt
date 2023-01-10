@@ -1,0 +1,48 @@
+.date
+{
+  font-weight: bold;
+  font-size: larger;
+  color:#fff;
+}
+
+.bannertext
+{
+	font-size:xx-large;
+	color:#fff;
+}
+
+.bannertoptext
+{
+	font-size:xxx-large;
+	color:#444;
+}
+
+.greysectionheader
+{
+  color: #666;
+  text-align:center;
+  padding-bottom: 8px;
+}
+
+a.inlinelink
+{
+	color:#321890;
+	font-size:inherit;
+	font-style:inherit;
+}
+
+.inlinelink a:hover
+{
+	color:#0f0;
+}
+
+.zerotop
+{
+  padding-top:0px;
+  margin-top:0px;
+}
+
+.textright
+{
+  text-align: right;
+}

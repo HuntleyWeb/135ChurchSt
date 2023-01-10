@@ -1,0 +1,51 @@
+<div class="banner col-12">
+  <!--a routerLink="/home" title="Click to go home!"><img src="assets/images/whitby.jpg" width="100%" height="580"/></a-->
+  <div class="row">
+    <div class="col-9">
+      <h1 class="bannertext"><span class="bannertoptext">STAY IN THE HEART OF THE OLD TOWN</span><br/>135a CHURCH STREET<br/>WHITBY</h1>
+    </div>
+    <div class="col-3 text-right date">
+      {{day}} - {{currentDate | date:'dd/MM/yyyy'}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-9">
+      <app-main-menu></app-main-menu>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+  </div>
+
+  <div class="row dottedtop justify-content-start">
+    <div class="col">
+      top bar
+    </div>
+  </div>
+
+  <div class="row align-items-start">
+    <div class="col-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div class="row fix-footer align-items-start">
+    <div class="col-8">
+      <div class="left">Copyright &copy; {{anio}} HuntleyWeb&nbsp;-&nbsp;Company Number:<b>11636241</b><br>
+        18 Angel House<br>
+        20 32 Pentonville Road<br>
+        London<br>
+        N1 9HJ
+      </div>
+    </div>
+    <div class="col-4 textright">
+      <span style="font-size:large">Telephone: <b>07841057610</b></span><br/>
+      <span style="font-size: small;">Version:{{version}}</span>
+    </div>
+  </div>
+</div>

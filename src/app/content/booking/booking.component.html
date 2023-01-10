@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="overlay-box" *ngIf="loading">
+    <p style="font-size:x-large; margin-top: 16px;" >Loading...</p>
+    <p>Please wait while we get booking data!</p>
+    <img src='../../assets/images/bigrotation2.gif'/>
+  </div>
+
+  <div class="overlay-box" *ngIf="sending">
+    <p style="font-size:x-large; margin-top: 16px;" >Sending...</p>
+    <p>Please wait while your request is processed!</p>
+    <img src='../../assets/images/bigrotation2.gif'/>
+  </div>
+
+  <div class="overlay-box solidbacking" style="height:500px" *ngIf="reserved">
+    <p style="font-size:x-large; margin-top: 16px;" >Thank you for booking with us.</p>
+    <p align="left">Your chosen dates are now reserved and we will be in touch shortly to finalize your booking.</p>
+    <div class="summaryrow">
+      <div class="summarylabel">Your Name :</div>
+      <div class="summaryvalue">{{model.Name}}</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Telephone :</div>
+      <div class="summaryvalue">{{model.Mobile}}</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Email Address :</div>
+      <div class="summaryvalue">{{model.EmailAddress}}</div>
+    </div>
+    <div>&nbsp;<hr/></div>
+    <div class="summaryrow">
+      <div class="summarylabel">Break :</div>
+      <div class="summaryvalue">{{breakType}}</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Arrive :</div>
+      <div class="summaryvalue">{{startDate | date:'dd/MM/yyyy'}} - {{ startDay }} (after 3pm)</div>
+    </div>
+    <div class="summaryrow">
+      <div class="summarylabel">Checkout :</div>
+      <div class="summaryvalue">{{endDate | date:'dd/MM/yyyy'}} - {{ endDay }} (before 10am)</div>
+    </div>
+    <div>&nbsp;<hr/></div>
+    <p align="left">You can contact us with any queries or special requests you may have or click on the <i>Booking Details</i> button below for further information.</p>
+    <div class="summaryrow">
+      <button type="button" (click)="exitBooking()" class="btn btn-success">Booking Details</button>&nbsp;
+      <button type="button" (click)="contact()" class="btn btn-info">Contact Us</button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Warning!</strong> {{errorMessage | json}}
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h1>Booking</h1>
+      <p>Use the calendar below to see when the cottage is free and to select the start and end dates or your stay.</p>
+      <p>Once you've selected your dates just supply your contact details when prompted and click on the <i>Book</i> button.</p>
+      <h2>Booking Options</h2>
+      <ul>
+        <li>Full Week (Starting Saturday, contact us to request other days)</li>
+        <li>Mid Week (Monday to Friday)</li>
+        <li>Weekend (Friday to Monday)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="boxcommon" style="height:500px">
+      <h2 class="zerotop">Your Dates...</h2>
+      <p>
+        Using the calendar below...
+      </p>
+      <ul>
+        <li>Select the date you want to start your holiday.</li>
+        <li>And then select the date on which you wish to leave.</li>
+      </ul>
+
+      <div class="keybox">
+        <div class="key booked"></div>
+        <div class="keytext">Booked or Unavailable</div>
+      </div>
+
+      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+        [minDate]= "minDate"
+        [maxDate]="maxDate"
+        [markDisabled] = "isDisabled"
+        outsideDays="hidden" >
+      </ngb-datepicker>
+
+      <ng-template #t let-date="date" let-focused="focused" let-disabled="disabled">
+        <span
+          class="custom-day"
+          [class.focused]="focused"
+          [class.range]="isRange(date)"
+          [class.faded]="isHovered(date) || isInside(date)"
+          [class.booked]="disabled"
+          (mouseenter)="hoveredDate = date"
+          (mouseleave)="hoveredDate = null">
+          {{ date.day }}
+        </span>
+      </ng-template>
+
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="boxcommon" style="min-height:200px;">
+      <h2 class="zerotop">Holiday Summary</h2>
+      Type of holiday selected: <b>{{ breakType }}</b><br/>
+
+      <div *ngIf="validDates" style="text-align:right">
+        Total Cost: &pound;{{ rate }}<br/>
+        Arrive: {{ startDay }} - {{startDate | date:'dd/MM/yyyy'}}<br/>
+        Depart: {{ endDay }} - {{endDate | date:'dd/MM/yyyy'}}<br/>
+      </div>
+
+      <div *ngIf="validDates">
+        <hr/>
+        <b>Complete the form below</b> to reserve and we will contact you to collect your booking deposit of {{ depositAmount }}
+        to secure your reservation in the coming days.
+        <hr/>
+        <form #rptForm="ngForm" (ngSubmit)="onSubmit();">
+          <div class="form-group">
+            <label for="BookerName">Your Name</label>
+            <input type="text" class="form-control" id="BookerName" required
+              [(ngModel)]="model.Name" name="BookerName" #BookerName="ngModel">
+            <div class="alert alert-danger" [hidden]="BookerName.valid || BookerName.pristine">
+                  Your Name is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="BookerEmail">Your Email Address</label>
+            <input type="text" class="form-control" id="BookerEmail" required
+              [(ngModel)]="model.EmailAddress" name="BookerEmail" #BookerEmail="ngModel">
+            <div class="alert alert-danger" [hidden]="BookerEmail.valid || BookerEmail.pristine">
+                  Your Email Address is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="BookerTel">Your Telephone Number</label>
+            <input type="text" class="form-control" id="BookerTel" required
+              [(ngModel)]="model.Mobile" name="BookerTel" #BookerTel="ngModel">
+            <div class="alert alert-danger" [hidden]="BookerTel.valid || BookerTel.pristine">
+                  Your Telephone Number is required!
+            </div>
+          </div>
+
+          <div class="bottombuttondiv">
+            <button type="submit" class="btn btn-primary" [disabled]="!rptForm.form.valid || sending || reserved">Book</button>&nbsp;
+            <button type="button" (click)="resetForm()" class="btn btn-danger" color="warn" [disabled]="sending  || reserved">Reset</button>&nbsp;
+            <button type="button" (click)="handleBooking()" class="btn btn-info"  [disabled]="sending || reserved">Test</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

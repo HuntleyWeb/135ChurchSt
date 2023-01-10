@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="overlay-box" *ngIf="sending">
+    <p style="font-size:x-large; margin-top: 16px;" >Sending...</p>
+    <p>Please wait while your message is sent!</p>
+    <img src='../../assets/images/bigrotation2.gif'/>
+  </div>
+
+  <div id="divConfBox" class="overlay-box" *ngIf="successful" style="height: 160px;">
+    <p style="font-size:x-large; margin-top: 16px;">Thank You</p>
+    <p>Your message has been successfully sent and you should receive a reply shortly!</p>
+    <div class="popupbottombuttondiv">
+      <button type="button" (click)="hideMe('divConfBox')" class="btn btn-success">Close</button>
+    </div>
+  </div>
+  <h1>Make an enquiry</h1>
+
+  <div class="row">
+    <div class="col-3">
+      <div class="boxcommon">
+        If you have any questions about any aspect of staying at <i>135a Church Street</i> or if
+
+        you want to enquire about different booking options, please complete the form opposite and I will get back to you as soon as possible.
+
+        <h3>Telephone</h3>
+        You can telephone me on <b>{{telephone}}</b>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="boxcommon" style="width:100%">
+        <form #rptForm="ngForm" (ngSubmit)="onSubmit();">
+          <div class="form-group">
+            <label for="MessagerName">Your Name</label>
+            <input type="text" class="form-control" id="MessagerName" required
+              [(ngModel)]="model.Name" name="MessagerName" #MessengerName="ngModel">
+            <div class="alert alert-danger" [hidden]="MessengerName.valid || MessengerName.pristine">
+                  Your Name is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="MessagerEmail">Your Email Address</label>
+            <input type="text" class="form-control" id="MessagerEmail" required
+              [(ngModel)]="model.EmailAddress" name="MessagerEmail" #MessengerEmail="ngModel">
+            <div class="alert alert-danger" [hidden]="MessengerEmail.valid || MessengerEmail.pristine">
+                  Your Email Address is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="MessageCategory">Category</label>
+            <select class="form-control" id="category" required [(ngModel)]="model.Category" name="category">
+                <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="MessageSubject">Message Subject</label>
+            <input type="text" class="form-control" id="MessageSubject" required
+              [(ngModel)]="model.Subject" name="MessageSubject" #Subject="ngModel">
+            <div class="alert alert-danger" [hidden]="Subject.valid || Subject.pristine">
+                  Please add a subject for your message!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <textarea rows="7" style="width: 100%;" [(ngModel)]="model.Message" name="Message" required id="Message" #Msg="ngModel" placeholder="Your Message"></textarea>
+            <div class="alert alert-danger" [hidden]="Msg.valid || Msg.pristine">
+                  Please add your message content!
+            </div>
+          </div>
+
+          <div class="bottombuttondiv">
+            <button type="submit" class="btn btn-primary" [disabled]="!rptForm.form.valid || sending">Submit</button>&nbsp;
+            <button type="button" (click)="resetForm()" class="btn btn-danger" color="warn" [disabled]="sending">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="boxcommon">
+        <h2 class="zerotop">Cottage Address</h2>
+        135a Church Street<br>
+        Whitby<br>
+        North Yorks<br>
+        YO22 4DE
+      </div>
+      <div>&nbsp;</div>
+      <div><img src="../../../assets/images/outside1.jpg" width="100%"  class="inlineimage" height="auto"/></div>
+      <div>&nbsp;</div>
+      <div class="boxcommon">
+        <h2 class="zerotop">Find us</h2>
+        Take a look at the map below to find us.
+      </div>
+    </div>
+  </div>
+  <div>&nbsp;</div>
+  <div class="row">
+    <div class="col-3">
+
+    </div>
+    <div class="col-6">
+      <div class="boxcommon">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d819.375955619818!2d-0.6131946604938902!3d54.48860614368429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487f176e12790a1d%3A0xe0ef920c36bb75db!2sChurch%20St%2C%20Whitby%20YO22%204DE!5e0!3m2!1sen!2suk!4v1671622083121!5m2!1sen!2suk" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    </div>
+    <div class="col-3">
+
+    </div>
+  </div>
+
+
+</div>

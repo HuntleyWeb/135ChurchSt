@@ -1,0 +1,54 @@
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.custom-day.booked {
+
+  color:#666;
+}
+.custom-day.now {
+  background-color: #00ff00;
+  color:#666;
+}
+
+.keybox
+{
+  border:solid 0px blue;
+  display:block;
+  height: 26px;
+  margin-top: 8px;
+}
+
+.key
+{
+  border:solid 0px #666;
+  height:20px;
+  width:18px;
+  float:left;
+  margin:4px;
+}
+
+.booked
+{
+  background-color: #ffa500;
+}
+
+.keytext
+{
+  float:left; margin: 3px;
+}
