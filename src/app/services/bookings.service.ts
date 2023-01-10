@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-//import { Observable, throwError } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { Booker } from '../models/booker';
 import { Daterange } from '../models/daterange';
