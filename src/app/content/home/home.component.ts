@@ -9,7 +9,10 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
+  LoggedIn = false;
+
   ngOnInit() {
+
   }
 
 }
